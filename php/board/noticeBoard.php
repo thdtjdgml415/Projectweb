@@ -108,7 +108,7 @@ include "../connect/session.php";
                                      // echo $admin;
                                      //  echo "<script>alert('".$adminAccount['adminAccount']."')</script>";
                                          echo "<div class='board_writeBtn'>
-                                                <a href='#'>글쓰기</a>
+                                                <a href='noticeBoardWrite.php'>글쓰기</a>
                                                </div>";
                                     }
                             ?>

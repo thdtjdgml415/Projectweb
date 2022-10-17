@@ -1,6 +1,9 @@
 <?php
 include "../connect/connect.php";
 include "../connect/session.php";
+// if( isset($_SESSION['userMemberID']) ){ 
+//     echo "<script>window.alert('잘못된접근입니다.'); location.href = '../main/main.php';</script>";
+//     }
 ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -32,7 +35,7 @@ include "../connect/session.php";
                             <p class="board_desc">IT.D에서 공지사항을 작성해주세요.</p>
                             <div class="write_inner">
                                 <div class="board__write">
-                                    <form action="boardWriteSave.php" name="boardWrite" method="post">
+                                    <form action="noticeBoardWriteSave.php" name="boardWrite" method="post">
                                         <fieldset>
                                             <legend class="ir">게시판 작성 영역</legend>
                                             <div>
@@ -58,7 +61,7 @@ include "../connect/session.php";
                 </section>
             </div>
         </main>
-        
+
         <!-- main -->
         <?php include "../include/footer.php" ?>
         <!-- footer -->
