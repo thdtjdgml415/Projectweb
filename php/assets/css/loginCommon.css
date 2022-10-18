@@ -51,13 +51,14 @@ input::placeholder {
 .login__box > form > fieldset > .join__title {
     margin-bottom: 40px;
 }
-.login__box > form > fieldset > p {
+.login__box > form > fieldset > .input__header {
     color: #888;
     font-size: 13px;
     word-break: keep-all;
     line-height: 1.4;
     margin-bottom: 30px;
 }
+
 .login__box > form > fieldset > legend {
 }
 .login__box > form > fieldset > div {
