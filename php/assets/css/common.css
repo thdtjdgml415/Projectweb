@@ -87,6 +87,66 @@
     color: #1363df;
 }
 
+/* 로그인 했을 때 프로필 네비게이션 */
+.headerTop__inner > .profile {
+    position: relative;
+}
+.headerTop__inner > .profile > figure {
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    border: 1px solid #e5e5e5;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.headerTop__inner > .profile > figure > img {
+}
+.headerTop__inner > .profile > .profile__nav {
+    text-align: center;
+    position: absolute;
+    height: 140px;
+    box-sizing: border-box;
+    padding: 10px 10px 0 10px;
+    top: 40px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #dcdcdc;
+    display: none;
+}
+.headerTop__inner > .profile > .profile__nav::after {
+    display: none;
+}
+.headerTop__inner > .profile > .profile__nav > ul {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.headerTop__inner > .profile > .profile__nav > ul > li {
+    border-bottom: 1px solid #dcdcdc;
+    box-sizing: border-box;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+.headerTop__inner > .profile > .profile__nav > ul > li:last-child {
+    border: 0;
+}
+
+.headerTop__inner > .profile > .profile__nav > ul > li > a {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 5px 20px 15px 20px;
+    color: #555;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+.headerTop__inner > .profile > .profile__nav > ul > li > a:last-child {
+}
+.headerTop__inner > .profile > .profile__nav > ul > li > a:hover {
+    color: #1365df;
+}
+
 .headerTop__inner nav {
 }
 .headerTop__inner nav ul {
