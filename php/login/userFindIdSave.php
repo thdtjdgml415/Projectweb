@@ -36,18 +36,15 @@ if($prevPage != '/php/login/userFindId.php'){
                             $row = mysqli_fetch_array($result);
                             if($rowNum == 1){
                                 echo "<figure>
-                                    <img src='/assets/image/Congratulations_bg.png' alt='회원가입 축하 이미지' />
+                                    <img src='/assets/image/passwordChange_bg.png' alt='회원가입 축하 이미지' />
                                 </figure>
-                                <p>찾으시는 아이디는 : ".$row[0]." 입니다.</p>
+                                <p>ID Find complete ✅</p>
                                 <span>
-                                    저희 IT.D 사이트는 <br />
-                                    다양한 이미지 다운로드 기능을 무료로 제공해드리고 있습니다. <br />
-                                    외에도 앞으로 다양한 기능이 추가되고 이벤트도 있으니 <br />
-                                    많은 방문 부탁드립니다. <br />
+                                    찾으시는 아이디는 : ".$row[0]." 입니다.
                                 </span>";
                             } else {
                                 echo "<figure>
-                                    <img src='/assets/image/Congratulations_bg.png' alt='회원가입 축하 이미지' />
+                                    <img src='/assets/image/passwordChange_bg.png' alt='회원가입 축하 이미지' />
                                 </figure>
                                 <p>에러 발생</p>
                                 <span>

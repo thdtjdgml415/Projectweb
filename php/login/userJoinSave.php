@@ -44,7 +44,8 @@ include "../connect/connect.php";
                             // echo $sql;
                             $sql2 = "UPDATE userMember SET userNickName = '$userID'  WHERE userID='$userID'";
                             $result = $connect -> query($sql);
-                            
+                            echo $sql;
+
                             $result2 = $connect -> query($sql2);
                             if($result && $result2){
                                 echo "<figure>
