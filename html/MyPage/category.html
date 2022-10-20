@@ -5,12 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <!-- Link Swiper's CSS -->
     <title>Bookmark</title>
 
     <link rel="stylesheet" href="../../assets/css/common.css">
     <link rel="stylesheet" href="../../assets/css/reset.css">
     <link rel="stylesheet" href="../../assets/css/category.css">
     <link rel="stylesheet" href="../../assets/css/fonts.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 </head>
 
 <body>
@@ -81,53 +84,55 @@
             <div class="main_inner">
                 <section class="bookmark_banner">
                     <div class="banner_inner">
-                        <p>BOOKMARK</p>
+                        <p>CATEGORY</p>
                         <div class="banner_udline"></div>
                     </div>
                 </section>
-                <section class="top_card container">
-                    <article class="top_box">
-                        <figure>
-                            <a href="#"><img src="../../assets/image/category1.jpg" alt="배경화면"></a>
-                        </figure>
-                        <div class="top_info">
-                            <p class="info_desc">Wallpaper <br> 배경화면</p>
+                <section class="card_inner container">
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img src="../../assets/image/category1.jpg" alt="">
+                                <p>WALLPAPER <br><em>배경화면</em></p>
+                            </div>
+                            <div class="swiper-slide"><img src="../../assets/image/category2.jpg" alt="">
+                                <p>ANIMAL<br><em>동물</em></p>
+                            </div>
+                            <div class="swiper-slide"><img src="../../assets/image/category3.jpg" alt="">
+                                <p>ILLUSTRATION<br><em>일러스트</em></p>
+                            </div>
+                            <div class="swiper-slide"><img src="../../assets/image/category04.jpg" alt="">
+                                <p>PLANTS<br><em>식물</em></p>
+                            </div>
+                            <div class="swiper-slide"><img src="../../assets/image/category5.jpg" alt="">
+                                <p>FOOD<br><em>음식</em></p>
+                            </div>
+                            <div class="swiper-slide"><img src="../../assets/image/category1.jpg" alt="">
+                                <p><em></em></p>
+                            </div>
+                            <div class="swiper-slide"><img src="../../assets/image/category2.jpg" alt="">
+                                <p><em></em></p>
+                            </div>
+                            <div class="swiper-slide"><img src="../../assets/image/category3.jpg" alt="">
+                                <p><em></em></p>
+                            </div>
+                            <div class="swiper-slide"><img src="../../assets/image/category04.jpg" alt="">
+                                <p><em></em></p>
+                            </div>
                         </div>
-                    </article>
-                    <article class="top_box">
-                        <figure>
-                            <a href="#"><img src="../../assets/image/category2.jpg" alt="배경화면"></a>
-                        </figure>
-                        <div class="top_info">
-                            <p class="info_desc">Wallpaper <br> 배경화면</p>
-                        </div>
-                    </article>
-                    <article class="top_box">
-                        <figure>
-                            <a href="#"><img src="../../assets/image/category3.jpg" alt="배경화면"></a>
-                        </figure>
-                        <div class="top_info">
-                            <p class="info_desc">Wallpaper <br> 배경화면</p>
-                        </div>
-                    </article>
-                    <article class="top_box">
-                        <figure>
-                            <a href="#"><img src="../../assets/image/category04.jpg" alt="배경화면"></a>
-                        </figure>
-                        <div class="top_info">
-                            <p class="info_desc">Wallpaper <br> 배경화면</p>
-                        </div>
-                    </article>
-                    <article class="top_box">
-                        <figure>
-                            <a href="#"><img src="../../assets/image/category5.jpg" alt="배경화면"></a>
-                        </figure>
-                        <div class="top_info">
-                            <p class="info_desc">Wallpaper <br> 배경화면</p>
-                        </div>
-                    </article>
+                    </div>
                 </section>
-                <!-- 위에 박스5개 -->
+                <!-- SWIPER -->
+
+                <section class="category__title container">
+                    <h2>CATEGORY</h2>
+                    <ul class="category__tag">
+                        <li><a href="#" data-tab="All">All</a></li>
+                        <li><a href="#" data-tab="love">love</a></li>
+                        <li><a href="#" data-tab="pastal">pastal</a></li>
+                        <li><a href="#" data-tab="plants">plants</a></li>
+                        <li><a href="#" data-tab="vintage">vintage</a></li>
+                    </ul>
+                </section>
                 <section class="main_card container">
                     <article class="main_cardBox">
                         <div class="main_image">
@@ -425,6 +430,8 @@
     </main>
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script>
         $('.toggle').click(function () {
             $(this).toggleClass('active');
@@ -447,6 +454,49 @@
                 heartBtn[num].classList.toggle('show');
             });
         });
+    </script>
+    <!-- swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 5,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                "@0.00": {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                },
+                "@0.75": {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                "@1.00": {
+                    slidesPerView: 3,
+                    spaceBetween: 40,
+                },
+                "@1.50": {
+                    slidesPerView: 4,
+                    spaceBetween: 50,
+                },
+                "@1.75": {
+                    slidesPerView: 5,
+                    spaceBetween: 60,
+                }
+            },
+        });
+    </script>
+    <!-- 태그 선택 -->
+    <script>
+        const tagList = document.querySelectorAll(".category__tag li");
+
+
+
+
+
+
     </script>
 </body>
 
