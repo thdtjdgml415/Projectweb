@@ -7,23 +7,28 @@
     margin-bottom: 10px;
 }
 .category__title .category__tag li {
-    border: 1px solid #DCDCDC;
     display: inline-block;
-    padding: 0.3rem 0.8rem;
-    border-radius: 50px;
     margin-bottom: 20px;
     margin-right: 10px;
 }
 
 .category__title .category__tag li a {
-    color: #AAAAAA;
+  padding: 0.3rem 0.8rem;
+  margin-bottom: 20px;
+  border-radius: 50px;
+  box-sizing: border-box;
 }
-.category__title .category__tag li.on {
-    background: #1363DF;
 
+.category__title .category__tag li a {
+    color: #AAAAAA;
+    background: #fff;
+    border: 1px solid #aaaaaa;
 }
-.category__title .category__tag li.on a {
+
+.category__title .category__tag li a.active {
+    background: #1363DF;
     color: #fff;
+    border: 1px solid #1363DF;
 }
 
 #main {
