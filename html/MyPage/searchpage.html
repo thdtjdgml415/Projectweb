@@ -5,12 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookmark</title>
+    <title>search</title>
 
     <link rel="stylesheet" href="../../assets/css/common.css">
     <link rel="stylesheet" href="../../assets/css/reset.css">
-    <link rel="stylesheet" href="../../assets/css/bookmark.css">
+    <link rel="stylesheet" href="../../assets/css/search.css">
     <link rel="stylesheet" href="../../assets/css/fonts.css">
+    <style>
+
+    </style>
 </head>
 
 <body>
@@ -64,27 +67,58 @@
                     </div>
                 </div>
                 <!-- //header__top -->
-                <div class="header__bottom">
+             
+
+                <!-- <div class="header__bottom">
                     <div class="headerBottom__inner container">
                         <div class="header__search">
                             <input type="text" placeholder="검색어를 입력해주세요." />
                         </div>
                         <button>검색</button>
+                        <label for="image_sort" class="ir">이미지 정렬</label>
+                        <select name="image" id="image_sort">
+                            <option value="date">날짜별</option>
+                            <option value="viewcount">조회수</option>
+                            <option value="">조회수</option>
+                        </select>
                     </div>
-                </div>
+                </div> -->
+                
             </div>
         </div>
     </header>
+    <section class="search_banner">
+        <div class="banner_inner container">
+            <p>SEARCH</p>
+            <div class="banner_udline"></div>
+        </div>
+    </section>
+    <section class="search_wrap ">
+        <div class="search_inner container">
+            <div class="search_input">
+                <label for="search" class="ir"></label>
+                <img src="../../assets/image/search_ico01.svg" alt="검색">
+                <input type="text" placeholder="검색어를 입력해주세요." />
+                <button>검색</button>
+            </div>
+        </div>
+        <div class="search_sort container">
+            <select name="image" id="image_sort">
+                <option value="Photo">Photo</option>
+                <option value="Creator">creator</option>
+            </select>
+            <select name="image" id="image_sort">
+                <option value="date">최신순</option>
+                <option value="viewcount">조회수</option>
+                <option value="like">좋아요수</option>
+            </select>
+            <div class="num">Total Found:00</div>
+        </div>
+    </section>
     <!-- header -->
     <main id="main">
         <div class="main_wrap">
             <div class="main_inner">
-                <section class="bookmark_banner">
-                    <div class="banner_inner container">
-                        <p>BOOKMARK</p>
-                        <div class="banner_udline"></div>
-                    </div>
-                </section>
                 <section class="main_card container">
                     <article class="main_cardBox">
                         <div class="main_image">
