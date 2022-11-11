@@ -40,11 +40,11 @@ include "../connect/connect.php";
                             $userPass = $connect -> real_escape_string(trim($userPass));
                             $userPass = sha1("web".$userPass);
                             // 회원가입
-                            $sql = "INSERT INTO userMember(userID, userName, userEmail, userPass, regTime) VALUES('$userID', '$userName', '$userEmail', '$userPass', '$regTime' )";
+                            $sql = "INSERT INTO userMember(userID, userName, userEmail, userPass, regTime, userPhoto) VALUES('$userID', '$userName', '$userEmail', '$userPass', '$regTime', 'Img_default.jpg')";
                             // echo $sql;
                             $sql2 = "UPDATE userMember SET userNickName = '$userID'  WHERE userID='$userID'";
                             $result = $connect -> query($sql);
-                            echo $sql;
+                            // echo $sql;
 
                             $result2 = $connect -> query($sql2);
                             if($result && $result2){

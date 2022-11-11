@@ -64,7 +64,7 @@ if( isset($_SESSION['userMemberID']) ){
                                         </p>
                                     </div>
                                     <label for="youName">Name</label>
-                                        <input type="name" name="youName" id="youName" placeholder="닉네임을 입력해주세요."
+                                        <input type="name" name="youName" id="youName" placeholder="성함을 입력해주세요."
                                             class="input__style4" >
                                 </div>
                                 <div class="overlay">

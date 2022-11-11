@@ -1,5 +1,12 @@
 * {
-    font-family: 'GmarketSans';
+    font-family: "GmarketSans";
+}
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    vertical-align: top;
 }
 #main {
     margin-bottom: 30px;
@@ -18,6 +25,7 @@
     right: 0;
     background-color: #fff;
     z-index: 999;
+    border-bottom: 1px solid #dcdcdc;
 }
 #header .header_wrap {
 }
@@ -65,7 +73,7 @@
 /* header__top */
 .header__top {
     padding: 10px 0;
-    border-bottom: 1px solid #dcdcdc;
+    /* border-bottom: 1px solid #dcdcdc; */
 }
 .header__top .headerTop__inner {
     box-sizing: border-box;
@@ -161,7 +169,7 @@
     position: absolute;
     top: 0px;
     right: -24px;
-    content: '';
+    content: "";
     width: 1px;
     height: 20px;
     background-color: #dcdcdc;
@@ -199,7 +207,7 @@
 /* header__bottom */
 .header__bottom {
     padding: 10px 0;
-    border-bottom: 1px solid #dcdcdc;
+    /* border-bottom: 1px solid #dcdcdc; */
 }
 .header__bottom .headerBottom__inner {
     display: flex;
@@ -216,15 +224,15 @@
     position: absolute;
     top: 10px;
     left: 10px;
-    content: '';
+    content: "";
     width: 16px;
     height: 16px;
-    background-image: url('../image/header_search_ico01.svg');
+    background-image: url("../image/header_search_ico01.svg");
     background-repeat: no-repeat;
     z-index: 1;
 }
 .header__search input {
-    font-family: 'GmarketSans';
+    font-family: "GmarketSans";
     font-size: 13px;
     color: #555;
     width: -webkit-fill-available;
@@ -378,6 +386,16 @@
 .footer_right .footer_menu ul li a {
     font-size: 12px;
     color: #999;
+}
+
+/* 더보기 버튼 */
+.seeMore__btn {
+    width: 20%;
+    margin: 0 auto;
+}
+.seeMore__btn > a {
+}
+.seeMore__btn > a > img {
 }
 
 @media (max-width: 1220px) {

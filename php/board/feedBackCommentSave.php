@@ -14,9 +14,18 @@
 
     $regTime = time();
     $userMemberID = $_SESSION['userMemberID'];
-
+    
+    $comment = nl2br($comment);
+    
     $sql = "INSERT INTO feedBackComment(feedBackBoardID, userMemberID, comment, regTime) VALUES('$feedBackBoardId', '$userMemberID', '$comment', '$regTime');";
     // echo $sql;
-    $connect -> query($sql);  
-    echo "<script>location.replace('feedBackBoardView.php?feedBackBoardID=$feedBackBoardId')</script>";
+    $result = $connect -> query($sql);  
+    
+    $jsonResult = "bad";
+    if($result){
+        $jsonResult = "good";
+    }
+    // echo json_encode(array("result" => $jsonResult, "likeCount" => $likeCount));
+
+     echo "<script>location.replace('feedBackBoardView.php?feedBackBoardID=$feedBackBoardId')</script>";
 ?>

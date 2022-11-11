@@ -23,7 +23,6 @@ if(!isset($_SESSION['userMemberID']) ){
     <body>
         <?php include "../include/header.php" ?>
         <!-- header -->
-     
         <main id="main">
             <div class="main_wrap">
                 <section class="board_wrap">
@@ -68,5 +67,10 @@ if(!isset($_SESSION['userMemberID']) ){
         <!-- footer -->
         
         <!-- // footer -->
+        <script>
+            document.querySelector(".btn_cancle").addEventListener("click", () => {
+                   history.back();
+                });
+        </script>
     </body>
 </html>

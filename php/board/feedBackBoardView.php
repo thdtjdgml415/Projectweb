@@ -1,7 +1,10 @@
 <?php 
     include "../connect/session.php";
     include "../connect/connect.php";
-    
+    $userMemberIDD = $_SESSION['userMemberID'];
+    $IDSQL = "SELECT * FROM userMember WHERE userMemberID = '$userMemberIDD'";
+    $IDRESULT = $connect -> query($IDSQL);
+    $userInfo = $IDRESULT -> fetch_array(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +26,7 @@
     <body>
         <?php include "../include/header.php" ?>
         <!-- header -->
-
+        <img src="../assets/userimg" alt="">
         <main id="main">
             <div class="main_wrap">
                 <section class="board_wrap">
@@ -135,7 +138,7 @@
                                   $info = $result->fetch_array(MYSQLI_ASSOC);
                               }
                               
-                              $sql2 = "SELECT b.commentId, a.userNickName, b.feedBackBoardID, b.userMemberID, b.comment, b.clike, b.regTime FROM userMember a JOIN feedBackComment b ON (a.userMemberID = b.userMemberID) WHERE feedBackBoardID = '$feedBackBoardID' ORDER BY commentId DESC";
+                              $sql2 = "SELECT b.commentId, a.userNickName, a.userMemberID, b.feedBackBoardID, b.userMemberID, b.comment, b.clike, b.regTime, a.userPhoto FROM userMember a JOIN feedBackComment b ON (a.userMemberID = b.userMemberID) WHERE feedBackBoardID = '$feedBackBoardID' ORDER BY commentId DESC";
                             //   echo "<script>alert('".$sql2."')</script>";
                               $result2 = $connect->query($sql2);
                               $commentCount2 = $result2 -> num_rows;
@@ -149,7 +152,7 @@
                                             <legend class="ir">댓글 작성 영역</legend>
                                             <div class="userComment__inner">
                                                 <div class="userIcon">
-                                                    <img src="../assets/img/usericon.svg" alt="프로필 사진" />
+                                                    <img src="../assets/userimg/Img_default.jpg " alt="프로필 사진" />
                                                 </div>
                                                     <?php
                                                     if(isset($_SESSION['userMemberID']) ){ 
@@ -185,64 +188,84 @@
                                         echo "<ul>";
                                         for($i=0; $i < $commentCount2; $i++){
                                             $info2 = $result2->fetch_array(MYSQLI_ASSOC);
+                                            $likeSql = "SELECT * FROM clike WHERE commentId  = '".$info2['commentId']."' AND feedBackBoardID = '$feedBackBoardID' AND clike = 1";
+                                            
+                                            $likeResult = $connect -> query($likeSql);
+                                            $likeCount = $likeResult -> num_rows;
+
+                                            $likeSql2 = "SELECT * FROM clike WHERE commentId = '".$info2['commentId']."' AND feedBackBoardID = '$feedBackBoardID' AND userMemberId = '$userMemberId'";
+                                          
+                                            $likeResult2 = $connect -> query($likeSql2);
+                                            $likeCount2 = $likeResult2 -> num_rows;
+
+                                           
+
                                             echo "<li id='".$info2['commentId']."'>";
                                             echo "<div class='userComments'>";
                                             echo "<div class='userComments__item'>
                                                         <div class='userComments__title'>
                                                             <div class='userIcon'>
-                                                                <img src='../assets/img/usericon.svg' alt='프로필 사진' />
+                                                                <img src='../assets/userimg/".$info2['userPhoto']."' alt='프로필 사진' />
                                                             </div>
                                                             <div class='userComments__name'>
-                                                                <a href=''>".$info2["userNickName"]."</a>
+                                                                <a href='../mypage/userpage.php?userMemberID=".$info2["userMemberID"]."'>".$info2["userNickName"]."</a>
                                                                 <p>".date("Y-m-d", $info2["regTime"])."</p>
-                                                            </div>
-                                                            <div class='userComments__like unLike'>
-                                                                <img src='../assets/img/unLikeIcon.svg' alt='' />
-                                                                <span>".$info2['clike']."</span>
-                                                            </div>
+                                                            </div>";
+                                            if($likeCount2 == 1){
+                                                echo "  <div class='userComments__like like'>
+                                                            <img src='../assets/img/likeIcon.svg' alt='아이콘' />
+                                                            <span>".$likeCount."</span>
                                                         </div>
-                                                ";
-
-                                                $commentSql = "SELECT * FROM feedBackComment WHERE feedBackBoardID = '$boardId' AND userMemberID = '$userMemberId' ";
-                                                $resultcomment = $connect -> query($commentSql);
+                                                      </div>";
+                                            }else {
+                                                echo "<div class='userComments__like unlike'>
+                                                            <img src='../assets/img/unLikeIcon.svg' alt='아이콘' />
+                                                            <span>".$likeCount."</span>
+                                                        </div>
+                                                    </div>";
+                                            }
+                                            
+                 
+                                            $commentSql = "SELECT * FROM feedBackComment WHERE feedBackBoardID = '$boardId' AND userMemberID = '$userMemberId' ";
+                                            $resultcomment = $connect -> query($commentSql);
+        
+                                            $countComment = $resultcomment -> num_rows;
                                                 
-                                                $countComment = $resultcomment -> num_rows;
-                                                
-                                                if($_SESSION['userMemberID'] == $info2['userMemberID'] && !$adminAccount['adminAccount'] == 1 ){ 
-                                                    // $boardCount = 1;
-                                                    if($countComment > 0){
-                                                         echo "<div class='userComments__modify'>
-                                                                     <button class='modify' type='button'>수정하기</button>
-                                                                     <span>|</span>
-                                                                     <button class='delete' type='button'>삭제하기</button>
-                                                               </div>";
-                                                     }
-                                                }  
+                                            if($_SESSION['userMemberID'] == $info2['userMemberID'] && !$adminAccount['adminAccount'] == 1 ){ 
+                                                // $boardCount = 1;
+                                                if($countComment > 0){
+                                                     echo "<div class='userComments__modify'>
+                                                                 <button class='modify' type='button'>수정하기</button>
+                                                                 <span>|</span>
+                                                                 <button class='delete' type='button'>삭제하기</button>
+                                                           </div>";
+                                                 }
+                                            }  
 
-                                                if($adminAccount['adminAccount'] == 1 && $_SESSION['userMemberID'] != $info2['userMemberID']){
+                                            if($adminAccount['adminAccount'] == 1 && $_SESSION['userMemberID'] != $info2['userMemberID']){
+                                                echo "<div class='userComments__modify'>
+                                                            <button class='delete' type='button'>삭제하기</a>
+                                                      </div>";
+                                            } 
+
+                                            if($_SESSION['userMemberID'] == $info2['userMemberID'] && $adminAccount['adminAccount'] == 1 ){ 
+                                                // $boardCount = 1;
+                                                if($countComment > 0){
                                                     echo "<div class='userComments__modify'>
-                                                                <button class='delete' type='button'>삭제하기</a>
+                                                                <button class='modify' type='button'>수정하기</button>
+                                                                <span>|</span>
+                                                                <button class='delete' type='button'>삭제하기</button>
                                                           </div>";
-                                                } 
-
-                                                if($_SESSION['userMemberID'] == $info2['userMemberID'] && $adminAccount['adminAccount'] == 1 ){ 
-                                                    // $boardCount = 1;
-                                                    if($countComment > 0){
-                                                        echo "<div class='userComments__modify'>
-                                                                    <button class='modify' type='button'>수정하기</button>
-                                                                    <span>|</span>
-                                                                    <button class='delete' type='button'>삭제하기</button>
-                                                              </div>";
-                                                     }
-                                                }
+                                                 }
+                                            }
                                             echo "</div>
                                                     <div class='userComments__desc'>
                                                         <p>".$info2['comment']."</p>
-                                                    </div>
-                                                    <div class='userComments__comment'>
-                                                        <button class='write noview'>댓글쓰기</button>
-                                                        <div class='leftLine'></div>
-                                                </div>";
+                                                    </div>";
+                                                    // <div class='userComments__comment'>
+                                                    //     <button class='write noview'>댓글쓰기</button>
+                                                    //     <div class='leftLine'></div>
+                                                    // </div>";
                                             echo "</div>";
                                             echo "<div class='comment'></div>";
                                             echo "</li>";
@@ -259,41 +282,40 @@
                     </div>
                 </section>
             </div>
-                            <div id="modal" class="gmark modify">
-                                <div class="modal__bg"></div>
-                                <div class="modal__wrap">
-                                    <div class="modal__inner">
-                                        <div class="modal__header">
-                                            <img src="/assets/image/modal_icon.svg" alt="경고" />
-                                            <h3>게시글 수정</h3>
-                                        </div>
-                                        <label for="userPass" class="blind">게시글 수정</label>
-                                        <input type="password" id="userPass" name="userPass" maxlength="20" placeholder="비밀번호를 입력해주세요." autocomplete="off" />
-                                        <div class="button">
-                                            <button type="button" class="btn_cancel">취소</button>
-                                            <button type="button" class="btn_check" onclick="passChecking()">확인</button>
-                                        </div>
-                                    </div>
-                                </div>
+                <div id="modal" class="gmark modify">
+                    <div class="modal__bg"></div>
+                    <div class="modal__wrap">
+                        <div class="modal__inner">
+                            <div class="modal__header">
+                                <img src="/assets/image/modal_icon.svg" alt="경고" />
+                                <h3>게시글 수정</h3>
                             </div>
-
-                            <div id="modal" class="gmark delete">
-                                <div class="modal__bg"></div>
-                                <div class="modal__wrap">
-                                    <div class="modal__inner">
-                                        <div class="modal__header">
-                                            <img src="/assets/image/modal_icon.svg" alt="경고" />
-                                            <h3>게시글 삭제</h3>
-                                        </div>
-                                        <label for="youPass" class="blind">게시글 삭제</label>
-                                        <input type="password" id="youPass" name="youPass" maxlength="20" placeholder="비밀번호를 입력해주세요." autocomplete="off" />
-                                        <div class="button">
-                                            <button type="button" class="btn_cancel">취소</button>
-                                            <button type="button" class="btn_check" onclick="passChecking2()">확인</button>
-                                        </div>
-                                    </div>
-                                </div>
+                            <label for="userPass" class="blind">게시글 수정</label>
+                            <input onkeyup="enterkey()" type="password" id="userPass" name="userPass" maxlength="20" placeholder="비밀번호를 입력해주세요." autocomplete="off" />
+                            <div class="button">
+                                <button type="button" class="btn_cancel">취소</button>
+                                <button type="button" class="btn_check" onclick="passChecking()">확인</button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="modal" class="gmark delete">
+                    <div class="modal__bg"></div>
+                    <div class="modal__wrap">
+                        <div class="modal__inner">
+                            <div class="modal__header">
+                                <img src="/assets/image/modal_icon.svg" alt="경고" />
+                                <h3>게시글 삭제</h3>
+                            </div>
+                            <label for="youPass" class="blind">게시글 삭제</label>
+                            <input onkeyup="enterkey()" type="password" id="youPass" name="youPass" maxlength="20" placeholder="비밀번호를 입력해주세요." autocomplete="off" />
+                            <div class="button">
+                                <button type="button" class="btn_cancel">취소</button>
+                                <button type="button" class="btn_check" onclick="passChecking2()">확인</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </main>
                             <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
                             <?php 
@@ -302,7 +324,6 @@
                                      
                                      let check = 1;
                                      
-
                                      if(document.querySelector('.btn_group .btn_modify')){
                                         
                                         document.querySelector('.btn_group .btn_modify').addEventListener('click', () => {
@@ -346,6 +367,11 @@
                                          form.submit();
                                      }
                                     
+                                    function enterkey() {
+                                        if (window.event.keyCode == 13) {
+                                            passChecking()
+                                        }
+                                    }
                                     function passChecking() {
                                         let youPass = $('#modal.modify #userPass').val();
                                         $.ajax({
@@ -418,9 +444,13 @@
 
                                         buttonDel.forEach((e, i) => {
                                             e.addEventListener('click', () => {
-                                                mom = e.parentNode.parentNode.parentNode.parentNode;
-                                                momId = mom.getAttribute('id');
-                                                post_to_url('feedBackCommentDelete.php', { 'feedBackBoardID': '${feedBackBoardID}', 'commentID': momId });
+                                                let deleteComment = confirm('정말로 삭제 하시겠습니까?');
+                                                if (deleteComment == true) {
+                                                    mom = e.parentNode.parentNode.parentNode.parentNode;
+                                                    momId = mom.getAttribute('id');
+                                                    post_to_url('feedBackCommentDelete.php', { 'feedBackBoardID': '${feedBackBoardID}', 'commentID': momId });
+                                                }
+                                                
                                            });
                                        });
 
@@ -435,23 +465,24 @@
                                                     
                                                 });
                                             });
-                                            function btn() {
-                                                document.querySelectorAll('.commentBtn button.back').forEach((e, i) => {
-                                                    e.addEventListener('click', () => {
-                                                        //  console.log(e.parentNode.parentNode.parentNode.firstChild)
-                                                        e.parentNode.parentNode.parentNode.parentNode.parentNode.firstChild.style.display = `block`;
-                                                        e.parentNode.parentNode.parentNode.parentNode.parentNode.lastChild.innerHTML = ''
-                                                    });
+                                        function btn() {
+                                            document.querySelectorAll('.commentBtn button.back').forEach((e, i) => {
+                                                e.addEventListener('click', () => {
+                                                    //  console.log(e.parentNode.parentNode.parentNode.firstChild)
+                                                    e.parentNode.parentNode.parentNode.parentNode.parentNode.firstChild.style.display = `block`;
+                                                    e.parentNode.parentNode.parentNode.parentNode.parentNode.lastChild.innerHTML = ''
                                                 });
-                                               
-                                            }
+                                            });
+                                           
+                                        }
+
                                             function creat() {
                                                 mom.lastChild.innerHTML += `<form action='feedBackCommentModify.php' name='comment' method='post'>
                                                                 <fieldset>
                                                                     <legend class='ir'>댓글 작성 영역</legend>
                                                                     <div class='userComment__inner'>
                                                                         <div class='userIcon'>
-                                                                            <img src='../assets/img/usericon.svg' alt='프로필 사진' />
+                                                                            <img src='../assets/userimg/".$userInfo['userPhoto']."' alt='프로필 사진' />
                                                                         </div>
                                                                         <div class='userComment login'>
                                                                            <input type='hidden' name='feedBackBoardID' id='feedBackBoardID' value='".$feedBackBoardID."'/>
@@ -467,12 +498,66 @@
                                                                 <fieldset>
                                                             </form>`;
                                             }
+
+                                            let cLikeId = '';
+                                            if(document.querySelectorAll('.userComments__like')){
+                                                document.querySelectorAll('.userComments__like').forEach((e,i) =>{
+                                                    e.addEventListener('click',() => {
+                                                        cLikeId = e.parentNode.parentNode.parentNode.parentNode.getAttribute('id');
+                                                        // console.log(e.classList.contains('unlike'))
+                                                        if(e.classList.contains('unlike')){
+                                                            $.ajax({
+                                                                type: 'POST',
+                                                                url: 'feedBackCommentLikeSave.php',
+                                                                data: { 'feedBackBoardID': '${feedBackBoardID}', 'commentID': cLikeId, 'userMember' : '$userMemberId', 'type' : 'like' },
+                                                                dataType: 'json',
+                                                                success: function (data) {
+                                                                    if (data.result == 'good') {
+                                                                        e.querySelector('img').src ='../assets/img/likeIcon.svg';
+                                                                        e.classList.remove('unlike');
+                                                                        e.classList.add('like');
+                                                                        e.querySelector('span').innerText = data.likeCount;
+                                                                    } else if (data.result == 'bad') {
+                                                                        return false;
+                                                                    }
+                                                                },
+                                                                error: function (request, status, error) {
+                                                                    console.log('request' + request);
+                                                                    console.log('status' + status);
+                                                                    console.log('error' + error);
+                                                                },
+                                                            });
+                                                        }else if(e.classList.contains('like')) {
+                                                            $.ajax({
+                                                                type: 'POST',
+                                                                url: 'feedBackCommentLikeSave.php',
+                                                                data: { 'feedBackBoardID': '${feedBackBoardID}', 'commentID': cLikeId, 'userMember' : '$userMemberId', 'type' : 'unLike' },
+                                                                dataType: 'json',
+                                                                success: function (data) {
+                                                                    if (data.result == 'good') {
+                                                                        e.querySelector('img').src ='../assets/img/unLikeIcon.svg';
+                                                                        e.classList.remove('like');
+                                                                        e.classList.add('unlike');
+                                                                        e.querySelector('span').innerText = data.likeCount;
+                                                                    } else if (data.result == 'bad') {
+                                                                        return false;
+                                                                    }
+                                                                },
+                                                                error: function (request, status, error) {
+                                                                    console.log('request' + request);
+                                                                    console.log('status' + status);
+                                                                    console.log('error' + error);
+                                                                },
+                                                            }); 
+                                                        }
+                                                    })
+                                                })
+                                            }
                                             
-                                    }
-                                </script>";
+                                    }</script>";
                             ?>
-         <!-- main -->
-         <?php include "../include/footer.php" ?>
+        <!-- main -->
+        <?php include "../include/footer.php" ?>
         <!-- footer -->
     </body>
 </html>

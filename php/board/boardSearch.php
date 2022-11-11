@@ -44,7 +44,7 @@ include "../connect/session.php";
                                      case 'title' :
                                          $sql .= "WHERE b.boardTitle LIKE '%{$searchKeyword}%' ORDER BY ${searchBoardId} DESC ";
                                          break;
-                                     case 'content' :
+                                     case 'contents' :
                                          $sql .= "WHERE b.boardContents LIKE '%{$searchKeyword}%' ORDER BY ${searchBoardId} DESC ";
                                          break;
                                      case 'name' :
@@ -59,18 +59,13 @@ include "../connect/session.php";
                                  } else {
                                      echo "안보임";
                                  }
-
                                 echo "<h2>".$searchBoardName."</h2>";
-                                
-                              
                                ?>
                             </div>
 
-                            <?php echo "<p>총 $boardCount 개의 게시글이 있습니다.</p>" ?>
-                            <div class="board_search">
-                            <?php 
-                                 
-                                 echo "<form action='boardSearch.php' name='boardSearch' method='get'>
+                            <p>총 <?= $boardCount ?> 개의 게시글이 있습니다.</p>
+                            <div class="board_search"> 
+                                 <form action='boardSearch.php' name='boardSearch' method='get'>
                                             <fieldset>
                                                 <select name='searchOption' id='searchOption'>
                                                     <option value='title'>제목</option>
@@ -79,13 +74,12 @@ include "../connect/session.php";
                                                 </select>
                                                 <legend class='ir'>게시판 검색 영역</legend>
                                                 <input type='search' name='searchKeyword' id='searchKeyword' placeholder='검색어를 입력해주세요.' aria-label='search' required />
-                                                <input type='hidden' name='searchBoard' id='searchBoard' value='${searchBoard}'/>
+                                                <input type='hidden' name='searchBoard' id='searchBoard' value='<?= $searchBoard ?>'/>
                                                 <button type='submit' class='searchBtn'>검색</button>
                                                 <button type='submit' class='searchBtn_Res'><img src='../assets/image/search_Icon.svg' alt='검색' /></button>
                                                 <!-- <a href='boardWrite.php' class='btn'>글쓰기</a> -->
                                             </fieldset>
-                                            </form>"
-                                 ?>
+                                   </form>
                             </div>
                             <div class="board_table">
                                 <table>
@@ -118,11 +112,9 @@ include "../connect/session.php";
                                                         if($count > 0) {
                                                             for($i=0; $i < $count; $i++){
                                                                 $info = $result -> fetch_array(MYSQLI_ASSOC);
-                                                                // echo "<script>alert('".$info['userNickName']."')</script>";
-                                                                // echo $i;
                                                                 echo "<tr>";
                                                                     echo "<td class='ce'>".$info[$searchBoardId]."</td>";
-                                                                    echo "<td class='lf'><a href='noticeBoardView.php?$searchBoardId={$info[$searchBoardId]}'>".$info['boardTitle']."
+                                                                    echo "<td class='lf'><a href='noticeBoardView.php?noticeBoardID={$info[$searchBoardId]}'>".$info['boardTitle']."
                                                                     <p class='resinfo'>".$info['userNickName']. "|<span>".date('Y-m-d', $info['regTime'])." </span><em>| 조회수 : ".$info['boardView']."</em></p>
                                                                     </td>";
                                                                     echo "<td class='ce Nickname'>".$info['userNickName']."</td>";
@@ -150,21 +142,17 @@ include "../connect/session.php";
                                     $adminAccount = mysqli_fetch_array($resultAdmin);
                                    
                                    if($searchBoard == 'noticeBoard'){
-                                    if($adminAccount['adminAccount'] == 1){
-                                        // echo $admin;
-                                        //  echo "<script>alert('".$adminAccount['adminAccount']."')</script>";
-                                            echo "<div class='board_writeBtn'>
-                                                   <a href='noticeBoardWrite.php'>글쓰기</a>
-                                                </div>";
-                                       }
-                                   } else {
-                                        echo "<div class='board_writeBtn'>
-                                        <a href='#'>글쓰기</a>
-                                        </div>";
-                                   }
-                                }
-                                   
-                            ?>
+                                    if($adminAccount['adminAccount'] == 1){ ?>
+                                        <div class='board_writeBtn'>
+                                            <a href='noticeBoardWrite.php'>글쓰기</a>
+                                        </div>
+                                 <?php }  
+                                        } else { ?>
+                                        <div class='board_writeBtn'>
+                                            <a href='noticeBoardWrite.php'>글쓰기</a>
+                                        </div>
+                              <?php } 
+                                } ?>
                             
 
                             <div class="board_pages">                          
@@ -188,9 +176,9 @@ include "../connect/session.php";
                                     }
                                     switch ($endPage){
                                         case $endPage:
-                                             $startPage -= 3;
+                                             $startPage -= 1;
                                              break;
-                                        case $endPage-1:
+                                        case $endPage -1:
                                              $startPage -= 2;
                                              break;
                                         case $endPage -2:

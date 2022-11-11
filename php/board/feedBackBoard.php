@@ -31,7 +31,7 @@ include "../connect/session.php";
                             </div>
                             <p>IT.D의 피드백 게시판입니다.</p>
                             <div class="board_search">
-                                <form action="boardSearch.php" name="boardSearch" method="get">
+                                <form action="feedBackSearch.php" name="boardSearch" method="get">
                                     <fieldset>
                                         <select name="searchOption" id="searchOption">
                                             <option value="title">제목</option>
@@ -158,6 +158,17 @@ include "../connect/session.php";
                                             $endPage += 1;
                                             break;
                                     }
+                                    switch ($endPage){
+                                        case $endPage:
+                                             $startPage -= 1;
+                                             break;
+                                        case $endPage -1:
+                                             $startPage -= 2;
+                                             break;
+                                        case $endPage -2:
+                                             $startPage -= 3;
+                                             break;
+                                      }
                                     //처음 페이지 초기화 
                                     if($startPage < 1 ){
                                         $startPage = 1;
